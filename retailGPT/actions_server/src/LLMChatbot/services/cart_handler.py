@@ -93,7 +93,8 @@ class CartHandler:
                 summary += f"1 unit, at R${price_per_unit:.2f}  \n"
 
         summary += f"Total cart value: R${cart_total_price:.2f}  \n"
-        summary += f"Total cart volume: {round(cart_total_volume_liters, 3)}L"
+        summary += f"Total cart volume: {round(cart_total_volume_liters, 3)}L\n"
+        summary += f"💳 Métodos de pago disponibles: MercadoPago, Tarjeta de Crédito, Débito, Efectivo"
 
         return summary
 

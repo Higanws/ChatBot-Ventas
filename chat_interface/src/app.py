@@ -5,7 +5,7 @@ from utils.data_utils import chat_to_word, generate_conversation_id
 
 # Set page title
 im = Image.open("./images/neuralmind.png")
-st.set_page_config(page_title="Retail-GPT prototype demo", page_icon=im)
+st.set_page_config(page_title="Óptica Solar - Asistente Virtual", page_icon=im)
 
 # Hide default Streamlit footer and menu
 hide_default_format = """
@@ -23,7 +23,7 @@ if "conversation_id" not in st.session_state:
 if "messages" not in st.session_state:
     st.session_state["messages"] = []
 
-st.title("💬 Retail-GPT prototype demonstration")
+st.title("🕶️ Óptica Solar - Asistente Virtual")
 
 
 def process_reset_button_click() -> None:
@@ -33,62 +33,60 @@ def process_reset_button_click() -> None:
 
 
 with st.sidebar:
-    st.write("Use this interface to interact with Retail-GPT and place orders at an fictional Foo convenience store.")
-    st.button("Restart conversation", on_click=process_reset_button_click)
+    st.write("¡Bienvenido a Óptica Solar! 🕶️ Tu tienda especializada en gafas de sol de alta calidad.")
+    st.button("Reiniciar conversación", on_click=process_reset_button_click)
     st.write(
-        "👇 You can download the current conversation as a Word document by clicking the button below."
+        "👇 Puedes descargar la conversación actual como documento Word haciendo clic en el botón de abajo."
     )
     conversation_docx = chat_to_word(st.session_state.messages)
     st.download_button(
-        "Download conversation as Word file",
+        "Descargar conversación como archivo Word",
         conversation_docx,
-        file_name="conversation_history.docx",
+        file_name="historial_conversacion.docx",
     )
-    st.header("Usage Instructions")
+    st.header("Instrucciones de Uso")
     st.write(
-        "**Read the instructions below for better testing the chatbot.**"
-    )
-    st.write(
-        "Send a message to start a conversation. The chatbot will guide you through the ordering process and can perform the following actions:"
-    )
-    st.write("- Check the availability of desired products")
-    st.write("- Provide recommendations based on your needs")
-    st.write("- Add and remove products from your cart")
-    st.write("- Finalize the order when you show interest.")
-    st.write("Actions other than these are not supported in this version.")
-    st.write(
-        "Feel free to send messages with typos, slang, or abbreviations, simulating a real user."
+        "**Lee las instrucciones a continuación para probar mejor el chatbot.**"
     )
     st.write(
-        "Try requesting more than one product or operation at a time to explore the chatbot's potential."
+        "Envía un mensaje para comenzar una conversación. El chatbot te guiará a través del proceso de compra y puede realizar las siguientes acciones:"
     )
-    st.subheader("ZIP Code Conventions:")
+    st.write("- Buscar gafas de sol disponibles")
+    st.write("- Proporcionar recomendaciones basadas en tus necesidades")
+    st.write("- Agregar y quitar productos de tu carrito")
+    st.write("- Finalizar el pedido cuando muestres interés")
+    st.write("- Asesorarte sobre protección UV y estilos")
+    st.write("Otras acciones no están soportadas en esta versión.")
     st.write(
-        "We will use your ZIP code to simulate your purchase history. Therefore, consider the following conventions for ZIP codes:"
-    )
-    st.write(
-        "- **ZIP codes ending in 0 - 3:** For each case, the user will have a different purchase history, so the chatbot can process messages like 'I want the same as yesterday'."
-    )
-    st.write(
-        "- **ZIP codes ending in 4 - 9:** The user has no purchase history."
-    )
-    st.write(
-        "For cases with purchase history, consider that the chatbot only knows about purchases on days relative to the current day, like 'yesterday', '10 days ago', or 'last month'. In other words, it is not yet able to process absolute dates."
-    )
-    st.subheader("Catalog and product search:")
-    st.write(
-        "During the conversation, a fictitious catalog with 50 products based on what is commonly found in convenience stores will be used. Not every real product is present in the fictitious catalog."
+        "Siéntete libre de enviar mensajes con errores tipográficos, jerga o abreviaciones, simulando un usuario real."
     )
     st.write(
-        "For testing purposes, some of the various products available in the complete catalog, for ZIP codes starting with 1 - 8, are:"
+        "Intenta solicitar más de un producto u operación a la vez para explorar el potencial del chatbot."
     )
-    st.write("- Guaraná Antarctica 350ml")
-    st.write("- Budweiser 600ml")
-    st.write("- Vinho Branco Seco Relevos 750ml")
-    st.write("- Vodka Absolut Original 1L")
-    st.write("- Whisky Jack Daniels 1L")
+    st.subheader("Convenciones de Código Postal:")
     st.write(
-        "The recommendation and product search system used was developed for this demonstration and does not necessarily reflect the performance of a real search mechanism."
+        "Usaremos tu código postal para simular tu historial de compras. Por lo tanto, considera las siguientes convenciones:"
+    )
+    st.write(
+        "- **Códigos postales que terminan en 0 - 3:** Para cada caso, el usuario tendrá un historial de compras diferente, por lo que el chatbot puede procesar mensajes como 'Quiero lo mismo que ayer'."
+    )
+    st.write(
+        "- **Códigos postales que terminan en 4 - 9:** El usuario no tiene historial de compras."
+    )
+    st.subheader("Catálogo de Gafas de Sol:")
+    st.write(
+        "Durante la conversación, se utilizará un catálogo con gafas de sol de marcas premium como Ray-Ban, Oakley, Persol, Tom Ford, Gucci, Prada y Maui Jim."
+    )
+    st.write(
+        "Para propósitos de prueba, algunas de las gafas disponibles en el catálogo son:"
+    )
+    st.write("- Ray-Ban Aviator Classic Gold")
+    st.write("- Oakley Holbrook Matte Black")
+    st.write("- Persol 649 Original Marrón")
+    st.write("- Tom Ford FT5235 Negro")
+    st.write("- Gucci GG0061S Negro")
+    st.write(
+        "El sistema de recomendación y búsqueda de productos fue desarrollado para esta demostración y no necesariamente refleja el rendimiento de un mecanismo de búsqueda real."
     )
 
 
@@ -153,7 +151,7 @@ def process_message(user_message: str) -> None:
 
 display_messages()
 
-if user_message := st.chat_input(placeholder="Type your message here..."):
+if user_message := st.chat_input(placeholder="Escribe tu mensaje aquí... (ej: 'Quiero gafas aviador para la playa')"):
     st.session_state.messages.append({"role": "user", "content": user_message})
     st.chat_message("user").write(user_message)
     process_message(user_message)
@@ -164,3 +162,4 @@ if user_message := st.chat_input(placeholder="Type your message here..."):
     # If such feature is added, we could just display the processed message here and
     # mount the download button dynamically
     st.rerun()
+

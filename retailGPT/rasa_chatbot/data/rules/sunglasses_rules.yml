@@ -1,0 +1,53 @@
+version: "3.1"
+
+rules:
+
+- rule: sunglasses_style_recommendation
+  steps:
+  - intent: ask_style_recommendation
+  - action: llm_processing
+
+- rule: sunglasses_face_shape_advice
+  steps:
+  - intent: ask_face_shape_advice
+  - action: llm_processing
+
+- rule: sunglasses_uv_protection_info
+  steps:
+  - intent: ask_uv_protection_info
+  - action: llm_processing
+
+- rule: sunglasses_brand_info
+  steps:
+  - intent: ask_brand_info
+  - action: llm_processing
+
+- rule: sunglasses_color_recommendation
+  steps:
+  - intent: ask_color_recommendation
+  - action: llm_processing
+
+- rule: sunglasses_activity_recommendation
+  steps:
+  - intent: ask_activity_sunglasses
+  - action: llm_processing
+
+- rule: sunglasses_care_instructions
+  steps:
+  - intent: ask_care_instructions
+  - action: llm_processing
+
+- rule: sunglasses_general_conversation
+  steps:
+  - intent: conversation
+  - action: llm_processing
+
+- rule: sunglasses_cart_status
+  steps:
+  - intent: cart_status
+  - action: return_cart_status
+
+- rule: sunglasses_finish_purchase
+  steps:
+  - intent: finish_purchase
+  - action: payment_method_form

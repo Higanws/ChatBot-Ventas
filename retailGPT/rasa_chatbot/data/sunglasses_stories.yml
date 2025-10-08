@@ -1,0 +1,201 @@
+version: "3.1"
+
+stories:
+
+- story: sunglasses_style_recommendation
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: zipcode_form
+  - active_loop: zipcode_form
+  - slot_was_set:
+    - requested_slot: legal_age
+  - intent: affirm
+  - slot_was_set:
+    - legal_age: true
+  - action: zipcode_form
+  - slot_was_set:
+    - legal_age: true
+  - slot_was_set:
+    - requested_slot: zipcode
+  - intent: inform_zipcode
+    entities:
+    - zipcode: '12345678'
+  - slot_was_set:
+    - zipcode: '12345678'
+  - action: zipcode_form
+  - slot_was_set:
+    - zipcode: '12345678'
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: process_cached_user_demands
+  - intent: ask_style_recommendation
+  - action: llm_processing
+  - intent: conversation
+  - action: llm_processing
+
+- story: sunglasses_face_shape_advice
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: zipcode_form
+  - active_loop: zipcode_form
+  - slot_was_set:
+    - requested_slot: legal_age
+  - intent: affirm
+  - slot_was_set:
+    - legal_age: true
+  - action: zipcode_form
+  - slot_was_set:
+    - legal_age: true
+  - slot_was_set:
+    - requested_slot: zipcode
+  - intent: inform_zipcode
+    entities:
+    - zipcode: '12345678'
+  - slot_was_set:
+    - zipcode: '12345678'
+  - action: zipcode_form
+  - slot_was_set:
+    - zipcode: '12345678'
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: process_cached_user_demands
+  - intent: ask_face_shape_advice
+  - action: llm_processing
+  - intent: conversation
+  - action: llm_processing
+
+- story: sunglasses_uv_protection_info
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: zipcode_form
+  - active_loop: zipcode_form
+  - slot_was_set:
+    - requested_slot: legal_age
+  - intent: affirm
+  - slot_was_set:
+    - legal_age: true
+  - action: zipcode_form
+  - slot_was_set:
+    - legal_age: true
+  - slot_was_set:
+    - requested_slot: zipcode
+  - intent: inform_zipcode
+    entities:
+    - zipcode: '12345678'
+  - slot_was_set:
+    - zipcode: '12345678'
+  - action: zipcode_form
+  - slot_was_set:
+    - zipcode: '12345678'
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: process_cached_user_demands
+  - intent: ask_uv_protection_info
+  - action: llm_processing
+  - intent: conversation
+  - action: llm_processing
+
+- story: sunglasses_brand_info
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: zipcode_form
+  - active_loop: zipcode_form
+  - slot_was_set:
+    - requested_slot: legal_age
+  - intent: affirm
+  - slot_was_set:
+    - legal_age: true
+  - action: zipcode_form
+  - slot_was_set:
+    - legal_age: true
+  - slot_was_set:
+    - requested_slot: zipcode
+  - intent: inform_zipcode
+    entities:
+    - zipcode: '12345678'
+  - slot_was_set:
+    - zipcode: '12345678'
+  - action: zipcode_form
+  - slot_was_set:
+    - zipcode: '12345678'
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: process_cached_user_demands
+  - intent: ask_brand_info
+  - action: llm_processing
+  - intent: conversation
+  - action: llm_processing
+
+- story: sunglasses_activity_recommendation
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: zipcode_form
+  - active_loop: zipcode_form
+  - slot_was_set:
+    - requested_slot: legal_age
+  - intent: affirm
+  - slot_was_set:
+    - legal_age: true
+  - action: zipcode_form
+  - slot_was_set:
+    - legal_age: true
+  - slot_was_set:
+    - requested_slot: zipcode
+  - intent: inform_zipcode
+    entities:
+    - zipcode: '12345678'
+  - slot_was_set:
+    - zipcode: '12345678'
+  - action: zipcode_form
+  - slot_was_set:
+    - zipcode: '12345678'
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: process_cached_user_demands
+  - intent: ask_activity_sunglasses
+  - action: llm_processing
+  - intent: conversation
+  - action: llm_processing
+
+- story: sunglasses_care_instructions
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: zipcode_form
+  - active_loop: zipcode_form
+  - slot_was_set:
+    - requested_slot: legal_age
+  - intent: affirm
+  - slot_was_set:
+    - legal_age: true
+  - action: zipcode_form
+  - slot_was_set:
+    - legal_age: true
+  - slot_was_set:
+    - requested_slot: zipcode
+  - intent: inform_zipcode
+    entities:
+    - zipcode: '12345678'
+  - slot_was_set:
+    - zipcode: '12345678'
+  - action: zipcode_form
+  - slot_was_set:
+    - zipcode: '12345678'
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: process_cached_user_demands
+  - intent: ask_care_instructions
+  - action: llm_processing
+  - intent: conversation
+  - action: llm_processing

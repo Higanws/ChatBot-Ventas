@@ -8,11 +8,11 @@ assistant_id: retailbot
 
 # Configuration for Rasa NLU.
 # https://rasa.com/docs/rasa/nlu/components/
-language: pt
+language: es
 
 pipeline:
 - name: SpacyNLP
-  model: en_core_web_lg
+  model: es_core_news_lg
   case_sensitive: false
 - name: SpacyTokenizer
 - name: SpacyFeaturizer

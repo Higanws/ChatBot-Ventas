@@ -14,6 +14,12 @@ entities:
 - payment_method
 - zipcode
 - modify_details
+- sunglasses_style
+- face_shape
+- activity_type
+- brand_preference
+- color_preference
+- uv_protection
 slots:
   zipcode:
     type: text
@@ -66,6 +72,13 @@ intents:
 - inform_zipcode
 - nlu_fallback
 - cart_status
+- ask_style_recommendation
+- ask_face_shape_advice
+- ask_uv_protection_info
+- ask_brand_info
+- ask_color_recommendation
+- ask_activity_sunglasses
+- ask_care_instructions
 actions:
 - utter_greet
 - utter_goodbye
@@ -81,62 +94,64 @@ actions:
 responses:
   utter_greet:
   - text: |
-      Hey there! Welcome to RetailGPT, your personal shopping assistant! I'm here to help you create your cart and recommend products. The process is simple: just let me know what you're looking for, and I'll guide you through selecting the best products from our store. Ready to get started?
+      ¡Hola! 👋 Bienvenido a Óptica Solar, tu tienda especializada en gafas de sol de alta calidad. Soy tu asistente virtual y estoy aquí para ayudarte a encontrar las gafas perfectas para ti. Puedo recomendarte modelos según tu estilo, forma de cara, actividades o preferencias. ¿Qué tipo de gafas de sol estás buscando?
   utter_goodbye:
-  - text: See you later! 👋🏼 If you need anything, we're here!
+  - text: ¡Hasta luego! 👋 Recuerda proteger tus ojos del sol. ¡Nos vemos pronto!
   utter_iamabot:
-  - text: Yes, I am a virtual assistant. How can I help you?
+  - text: Sí, soy un asistente virtual especializado en gafas de sol. ¿En qué puedo ayudarte hoy?
   utter_ask_legal_age:
   - text: |
-      Before we start, I just need to confirm some information. 🍻 Are you of legal age?
+      Antes de comenzar, necesito confirmar que eres mayor de edad para realizar compras. ¿Eres mayor de 18 años?
     buttons:
-    - title: Yes, I declare that I am of legal age.
+    - title: Sí, soy mayor de edad.
       payload: /affirm
-    - title: I am still under legal age.
+    - title: Soy menor de edad.
       payload: /deny
   utter_ask_zipcode:
-  - text: Now tell me, what's your ZIP code?
-  - text: Please give me your ZIP code.
-  - text: I need your ZIP code to continue. Can you provide it?
-  - text: Please inform your ZIP code.
+  - text: Perfecto! Ahora necesito tu código postal para calcular los costos de envío.
+  - text: Por favor, proporciona tu código postal.
+  - text: Necesito tu código postal para continuar. ¿Puedes proporcionarlo?
+  - text: Por favor, indica tu código postal.
   utter_submit_zipcode:
-  - text: Noted! 📝 Now just tell me what you want and place your order.
+  - text: ¡Excelente! 📝 Ahora cuéntame qué tipo de gafas de sol necesitas y te ayudaré a encontrar las perfectas para ti.
   utter_submit_payment:
-  - text: Noted! 📝 Now just wait for your order to arrive at your home!
+  - text: ¡Perfecto! 📝 Tu pedido está listo. ¡Recibirás tus gafas de sol en casa pronto!
   utter_slots_values:
   - text: |-
-      You provided:
-       - ZIP code: {zipcode}
-       - Is of legal age: {legal_age}
+      Información proporcionada:
+       - Código postal: {zipcode}
+       - Mayor de edad: {legal_age}
   utter_please_rephrase:
-  - text: Sorry, I didn't understand. Can you rephrase?
-  - text: I didn't understand. Can you say it differently?
+  - text: Lo siento, no entendí. ¿Puedes reformular tu pregunta?
+  - text: No entendí. ¿Puedes decirlo de otra manera?
   utter_zipcode_form_warning:
-  - text: Before assisting you, I need you to answer the questions I asked, please.
-  - text: Before we continue, I need you to answer the questions I asked, please.
+  - text: Antes de ayudarte, necesito que respondas las preguntas que te hice, por favor.
+  - text: Antes de continuar, necesito que respondas las preguntas que te hice, por favor.
   utter_ask_payment_method:
-  - text: 'Choose your payment method:'
+  - text: 'Elige tu método de pago:'
     buttons:
-    - title: Cash
+    - title: Efectivo
       payload: /inform{{"payment_method":"Cash"}}
-    - title: Credit
+    - title: Tarjeta de Crédito
       payload: /inform{{"payment_method":"Credit"}}
-    - title: Debit
+    - title: Tarjeta de Débito
       payload: /inform{{"payment_method":"Debit"}}
+    - title: MercadoPago
+      payload: /inform{{"payment_method":"MercadoPago"}}
   utter_ask_modify_details:
   - text: ''
     buttons:
-    - title: Change ZIP code
+    - title: Cambiar código postal
       payload: /inform{{"modify_details":"zipcode"}}
-    - title: Change payment method
+    - title: Cambiar método de pago
       payload: /inform{{"modify_details":"payment_method"}}
-    - title: Change the order
+    - title: Modificar el pedido
       payload: /inform{{"modify_details":"cart"}}
-    - title: Everything is correct!
+    - title: ¡Todo está correcto!
       payload: /inform{{"modify_details":"ok"}}
   utter_default:
-  - text: Sorry, I didn't understand. Please say it differently.
-  - text: I didn't understand. Please rephrase.
+  - text: Lo siento, no entendí. Por favor, reformula tu pregunta.
+  - text: No entendí. Por favor, explícame de otra manera.
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true

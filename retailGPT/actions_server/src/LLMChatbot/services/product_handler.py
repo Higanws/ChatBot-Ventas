@@ -15,7 +15,7 @@ class ProductHandler:
     _mocked_products_path: str = (
         Path(__file__).resolve().parent.parent.parent.parent.parent
         / "datasets"
-        / "mocked_products.json"
+        / "sunglasses_products.json"
     )
 
     _purchase_history_path: str = (
@@ -51,8 +51,12 @@ class ProductHandler:
                 if zipcode[0] == "9" and index % 3 > 0:
                     continue
                 name = product["product_name"]
+                brand = product["brand"]
+                color = product["color"]
+                style = product["style"]
+                uv_protection = product["uv_protection"]
                 unit_price = round(product["full_price"], 2)
-                catalog_string += f"Name: {name} - Price: R${unit_price}\n"
+                catalog_string += f"Name: {name} - Brand: {brand} - Color: {color} - Style: {style} - UV Protection: {uv_protection} - Price: R${unit_price}\n"
 
         return catalog_string
 
@@ -162,8 +166,14 @@ class ProductHandler:
         formatted_recommendation = ""
         for product in raw_recommendation:
             product_price = round(product["full_price"], 2)
+            brand = product["brand"]
+            color = product["color"]
+            style = product["style"]
+            uv_protection = product["uv_protection"]
             formatted_recommendation += (
-                f"{product['product_name']} - R${product_price} per unit\n"
+                f"🕶️ {product['product_name']}\n"
+                f"   Marca: {brand} | Color: {color} | Estilo: {style}\n"
+                f"   Protección UV: {uv_protection} | Precio: R${product_price}\n\n"
             )
 
         return formatted_recommendation

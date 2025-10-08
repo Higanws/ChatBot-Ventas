@@ -90,19 +90,19 @@ nlu:
     - [87654321](zipcode)
 - intent: conversation
   examples: |
-    - I want beer
-    - I want to buy beer
-    - I want to buy a drink
+    - I want sunglasses
+    - I want to buy sunglasses
+    - I want to buy aviator sunglasses
     - How can I place an order?
-    - How do I buy beer?
+    - How do I buy sunglasses?
     - What products do you sell?
     - What are the available products?
-    - How much is the beer?
+    - How much are the sunglasses?
     - What are the options?
-    - Add Skol to the cart
-    - I want to buy Brahma
-    - 5 units
-    - 5 beers
+    - Add Ray-Ban to the cart
+    - I want to buy Oakley
+    - 1 unit
+    - 1 pair of sunglasses
     - Make a delivery
     - Place an order
     - Purchase products
@@ -113,19 +113,43 @@ nlu:
     - Place an order
     - remove one
     - add two more of this
-    - please add a vodka
+    - please add a Tom Ford
     - clear the cart
     - empty the cart
-    - remove the beer
-    - I don't want this Corona anymore
-    - add more vodka
-    - what beer brands do you have
-    - what kind of liquor do you have
-    - I want a snack
-    - I want to buy a snack
-    - Do you have meat?
-    - I need ice
+    - remove the sunglasses
+    - I don't want this Ray-Ban anymore
+    - add more Oakley
+    - what sunglasses brands do you have
+    - what kind of sunglasses do you have
+    - I want polarized sunglasses
+    - I want to buy polarized sunglasses
+    - Do you have UV protection?
+    - I need sunglasses for the beach
     - What products do you sell?
+    - I want aviator style
+    - I need wayfarer sunglasses
+    - I want sport sunglasses
+    - I need sunglasses for running
+    - I want oversized sunglasses
+    - I need sunglasses for driving
+    - I want metal frame sunglasses
+    - I need acetate frame sunglasses
+    - I want titanium frame sunglasses
+    - I need mirrored lenses
+    - I want gradient lenses
+    - I need 100% UV protection
+    - I want black sunglasses
+    - I need brown sunglasses
+    - I want gold sunglasses
+    - I need silver sunglasses
+    - I want tortoise sunglasses
+    - I need blue sunglasses
+    - I want red sunglasses
+    - I need green sunglasses
+    - I want small size
+    - I need medium size
+    - I want large size
+    - I need extra large size
 - intent: inform
   examples: |
     - [cash](payment_method)
@@ -161,6 +185,106 @@ nlu:
     - What's in the bag
     - I want the cart status
     - Return my cart
+- intent: ask_style_recommendation
+  examples: |
+    - What style suits me?
+    - What style looks good on me?
+    - What style should I choose?
+    - Which style is best for me?
+    - What style fits my face?
+    - Recommend a style for me
+    - What style do you recommend?
+    - I don't know what style to choose
+    - Help me choose a style
+    - What style is popular?
+    - What style is trendy?
+    - What style is classic?
+- intent: ask_face_shape_advice
+  examples: |
+    - What suits my face shape?
+    - What looks good on my face?
+    - What fits my face shape?
+    - I have a round face, what suits me?
+    - I have an oval face, what suits me?
+    - I have a square face, what suits me?
+    - I have a heart-shaped face, what suits me?
+    - What face shape do I have?
+    - How do I know my face shape?
+    - What sunglasses fit my face?
+    - What frames suit my face?
+- intent: ask_uv_protection_info
+  examples: |
+    - What is UV protection?
+    - Why do I need UV protection?
+    - What is 100% UV protection?
+    - What is UV400?
+    - Do I need polarized lenses?
+    - What are polarized lenses?
+    - What is the difference between UV and polarized?
+    - How much UV protection do I need?
+    - Are all sunglasses UV protected?
+    - What happens without UV protection?
+    - How do I know if sunglasses have UV protection?
+- intent: ask_brand_info
+  examples: |
+    - What brands do you have?
+    - What is Ray-Ban?
+    - What is Oakley?
+    - What is Tom Ford?
+    - What is Gucci?
+    - What is Prada?
+    - What is Persol?
+    - What is Maui Jim?
+    - Which brand is best?
+    - What brand do you recommend?
+    - What is the difference between brands?
+    - Which brand is most popular?
+    - Which brand is most expensive?
+    - Which brand is best quality?
+- intent: ask_color_recommendation
+  examples: |
+    - What color should I choose?
+    - What color looks good on me?
+    - What color is popular?
+    - What color is classic?
+    - What color is trendy?
+    - What color matches my skin?
+    - What color matches my hair?
+    - What color is versatile?
+    - What color goes with everything?
+    - What color is best for summer?
+    - What color is best for winter?
+    - What color is best for work?
+    - What color is best for casual?
+- intent: ask_activity_sunglasses
+  examples: |
+    - What sunglasses for the beach?
+    - What sunglasses for running?
+    - What sunglasses for driving?
+    - What sunglasses for sports?
+    - What sunglasses for work?
+    - What sunglasses for casual wear?
+    - What sunglasses for formal events?
+    - What sunglasses for outdoor activities?
+    - What sunglasses for hiking?
+    - What sunglasses for cycling?
+    - What sunglasses for fishing?
+    - What sunglasses for skiing?
+    - What sunglasses for golf?
+- intent: ask_care_instructions
+  examples: |
+    - How do I clean my sunglasses?
+    - How do I take care of my sunglasses?
+    - How do I store my sunglasses?
+    - How do I protect my sunglasses?
+    - What should I avoid with my sunglasses?
+    - How often should I clean my sunglasses?
+    - What cleaning products should I use?
+    - How do I prevent scratches?
+    - How do I fix scratches?
+    - How do I maintain my sunglasses?
+    - What is the warranty?
+    - How long do sunglasses last?
 - regex: zipcode
   examples: |
     - \b[0-9]{5}-[0-9]{3}\b
