@@ -9,7 +9,7 @@ class CartHandler:
     Manages the user's cart, which is a list of products.
     """
 
-    _max_volume_liters: float = 15
+    _max_volume_liters: float = 5  # Reduced for sunglasses (5 pairs max)
 
     # Predefined messages:
     _successful_removal_message: str = (
@@ -93,7 +93,7 @@ class CartHandler:
                 summary += f"1 unit, at R${price_per_unit:.2f}  \n"
 
         summary += f"Total cart value: R${cart_total_price:.2f}  \n"
-        summary += f"Total cart volume: {round(cart_total_volume_liters, 3)}L\n"
+        summary += f"Total cart volume: {round(cart_total_volume_liters, 3)}L (máximo {CartHandler._max_volume_liters} pares)\n"
         summary += f"💳 Métodos de pago disponibles: MercadoPago, Tarjeta de Crédito, Débito, Efectivo"
 
         return summary

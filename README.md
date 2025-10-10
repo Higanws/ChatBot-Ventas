@@ -1,104 +1,644 @@
-# Retail-GPT
+# 🕶️ Óptica Solar - Chatbot de Gafas de Sol
 
-This repository contains the source code for Retail-GPT, a open-source RAG-based chatbot designed to guide users through product recommendations and assist with cart operations, aiming to enhance user engagement with retail e-commerce and serve as a virtual sales agent. The goal of this system is to test the viability of such an assistant and provide an adaptable framework for implementing sales chatbots across different retail businesses.
+[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org)
+[![Rasa](https://img.shields.io/badge/Rasa-3.x-red.svg)](https://rasa.com)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.x-green.svg)](https://streamlit.io)
+[![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4o-purple.svg)](https://openai.com)
+[![MercadoPago](https://img.shields.io/badge/MercadoPago-API-yellow.svg)](https://mercadopago.com)
 
-For demonstration and test purposes, the chatbot implemented in this repository is contextualized to work as a sales agent for a fictional Foo convenience store.   Nevertheless, the implementation is not dependant of this domain and could be adapted to work with other type of businesses. 
+> **Sistema de chatbot inteligente especializado en gafas de sol con recomendaciones personalizadas, asesoramiento sobre protección UV y procesamiento de pagos integrado.**
 
-The project paper can be read at [retailGPT PDF](/retailGPT.pdf)
+## 📋 Tabla de Contenidos
 
-The complete project is composed of 4 different applications that can be run separately:
+- [Características Principales](#-características-principales)
+- [Arquitectura del Sistema](#-arquitectura-del-sistema)
+- [Instalación Rápida](#-instalación-rápida)
+- [Instalación Detallada](#-instalación-detallada)
+- [Configuración](#-configuración)
+- [Uso del Sistema](#-uso-del-sistema)
+- [Testing](#-testing)
+- [API y Endpoints](#-api-y-endpoints)
+- [Desarrollo](#-desarrollo)
+- [Despliegue](#-despliegue)
+- [Troubleshooting](#-troubleshooting)
+- [Contribuciones](#-contribuciones)
+- [Licencia](#-licencia)
 
-- **Chat interface:** Front-end application for demonstration purposes built primarily with [`Streamlit`](https://streamlit.io/). This application is optional, as the chatbot can be executed directly from the terminal.
-- **Rasa chatbot:** [`Rasa`](https://rasa.com/) application that serves as a base for all the chatbot. Responsible for processing chit-chat, extracting entities and delegating tasks to the RAG subsystem
-- **Rasa actions server:** [`Rasa`](https://rasa.com/)'s custom actions server, in which validations and the RAG system is implemented
-- **Redis database:** Database for storing conversation histories and users' carts.
+## 🌟 Características Principales
 
-For powering the Rag system implemented in the actions server, Open AI's `gpt-4o` model was used through the [`Open AI API`](https://openai.com/index/openai-api/) for its response quality and hability to perform function calls. Function calls are the primary feature used for integrating the model with external tools due to its simplicity of use and efectiveness, but it would be possible to achieve similar results by replacing them with techniques such as ReAct prompting.
+### 🕶️ **Especialización en Gafas de Sol**
+- **Recomendaciones inteligentes** basadas en IA con GPT-4o
+- **Asesoramiento personalizado** según estilo, forma de cara y actividades
+- **Catálogo premium** con marcas como Ray-Ban, Oakley, Tom Ford, Gucci, Prada
+- **Filtros avanzados** por marca, color, material, estilo y protección UV
 
-# Installation and Usage
+### 💳 **Integración de Pagos**
+- **Procesamiento seguro** con MercadoPago
+- **Múltiples métodos de pago** (tarjeta, débito, efectivo, MercadoPago)
+- **Webhooks en tiempo real** para notificaciones de pago
+- **Carrito inteligente** con validaciones de volumen y stock
 
-## Chat Interface
+### 🤖 **Inteligencia Artificial Avanzada**
+- **Sistema RAG** (Retrieval-Augmented Generation) con GPT-4o
+- **Procesamiento de lenguaje natural** en español
+- **Memoria de conversación** y historial de compras
+- **Asesoramiento técnico** sobre protección UV y cuidado
 
-To install and run the chatbot demo interface, follow the steps below:
+### 🎨 **Interfaz de Usuario**
+- **Interfaz moderna** construida con Streamlit
+- **Diseño responsivo** y fácil de usar
+- **Visualización de productos** con imágenes
+- **Descarga de historial** de conversaciones
 
-1. Clone the repository
-2. Run `cd chat_interface` to go to the interface directory
-3. [Install poetry](https://python-poetry.org/docs/#installing-with-the-official-installer) for dependency management
-4. Install the dependencies with ```poetry install``` in your current active environment (using a separate python environment is advisable)
-5. Go to the app's folder with ```cd src```
-6. Run the interface application with ```streamlit run app.py```
+## 🏗️ Arquitectura del Sistema
 
-The chatbot demo interface will be available at http://localhost:8501. You can interact with the chatbot by typing messages in the input box and pressing Enter.
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Interfaz      │    │   Chatbot       │    │  Servidor de    │
+│   Streamlit     │◄──►│   Rasa          │◄──►│  Acciones       │
+│   (Frontend)    │    │   (NLP Engine)  │    │  (Business Logic)│
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+         │                       │                       │
+         │                       │                       │
+         ▼                       ▼                       ▼
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Descarga      │    │   Redis         │    │   OpenAI        │
+│   Conversaciones│    │   Database      │    │   GPT-4o        │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+                                │
+                                ▼
+                       ┌─────────────────┐
+                       │   MercadoPago   │
+                       │   API           │
+                       └─────────────────┘
+```
 
-## Rasa Chatbot
+### **Componentes Principales:**
 
-To install the dependencies and execute the chatbot:
+1. **Interfaz Streamlit** (`chat_interface/`)
+   - Frontend interactivo
+   - Visualización de productos
+   - Gestión de conversaciones
 
-1. Run `cd retailGPT/rasa_chatbot` to go to the Rasa chatbot directory
-2. Run `poetry install` to install the dependencies in your current active environment (using a separate python environment is advisable)
-3. Run `python -m spacy download en_core_web_lg` to download the [`spacy`](https://spacy.io/) model used
-4. Run `rasa train` for training the model
-5. Run `rasa run` if you want to run the application as an API.
+2. **Chatbot Rasa** (`retailGPT/rasa_chatbot/`)
+   - Motor de conversación
+   - Procesamiento de NLP
+   - Gestión de intents y entidades
 
-Alternatively, instead of running `rasa run`, you can run `rasa shell` (can add `--debug` option to get more logs) for running the application and starting a chat directly in the terminal. This option can be useful if you don't want to run the separate interface application.
+3. **Servidor de Acciones** (`retailGPT/actions_server/`)
+   - Lógica de negocio
+   - Sistema RAG
+   - Integración con APIs externas
 
-## Rasa's Actions Server
+4. **Base de Datos Redis**
+   - Almacenamiento de sesiones
+   - Cache de recomendaciones
+   - Gestión de carritos
 
-To install the dependencies and execute the actions server:
+## 🚀 Instalación Rápida
 
-1. Run `cd retailGPT/actions_server` to go to the Rasa chatbot directory
-2. Run `poetry install` to install the dependencies in your current active environment (using a separate python environment is advisable)
-3. Make sure you have an environment variable `OPENAI_API_KEY` set with your API key value
-   1. If you prefer using Open AI through Microsoft Azure, make sure you edit the boolean use_azure in llm_handler to True and set the following environment variables: 
-       1. `AZURE_OPENAI_API_KEY`: key for azure Open AI
-       2. `AZURE_RESOURCE`: Azure resource in which the model is deployed
-       3. `AZURE_API_VERSION`: Api version of the deployment
-4. Run `python -m rasa_sdk --actions actions` for running the server
+### **Prerrequisitos:**
+- Python 3.8+
+- Poetry
+- Docker
+- Clave API de OpenAI
 
-## Database
+### **Instalación Automática:**
 
-The database is run as a Redis container. For running the database:
+```bash
+# 1. Clonar el repositorio
+git clone <repository-url>
+cd ChatBot-Ventas
 
-1. Make sure you have [Docker]() installed in your machine
-2. Run `docker-compose up database`
+# 2. Instalar automáticamente
+python setup_optica_solar.py
 
-The database will run at port 6379 and will be ready to use by the other applications
+# 3. Configurar credenciales
+cp env_example.txt .env
+# Edita .env con tus credenciales
 
-## Running with Docker
+# 4. Ejecutar sistema
+start_all.bat  # Windows
+./start_all.sh # Linux/Mac
+```
 
-You can also run everything through Docker using the compose file at the root of the project. Be aware that, in order for the containers to communicate between each other in the Docker network, you will also need to update the endpoints in the project. In this, sense, do:
+### **Acceso:**
+- **Interfaz de Usuario:** http://localhost:8501
+- **API de Rasa:** http://localhost:5005
+- **Servidor de Acciones:** http://localhost:5055
 
-In ```chat_interface/src/chatbot.py```: Change "localhost" to "rasa" in the Rasa chatbot URLs and "localhost" to "database" in the single Redis-related URL.
+## 📖 Instalación Detallada
 
-In ```retailGPT/rasa_chatbot/endpoints.tml```: Change "localhost" to "actions" 
+### **1. Verificar Prerrequisitos**
 
-In ```retailGPT/actions_server/src/LLMChatbot/services/chatbot.py```: Change "localhost" to "database"
+```bash
+# Verificar Python
+python --version  # Debe ser 3.8+
 
-## Code Architecture
+# Verificar Poetry
+poetry --version
 
-If this is your first time working on this repository, you will probably need to get familiar with the files and directories listed below. Please note that not all the project's files are listed, only the most important ones.
+# Verificar Docker
+docker --version
+```
 
-- `chat_interface` : Interface application 
-- `retailGPT` : Contains all the chatbot's logic
-  - `rasa_chatbot` : [`Rasa`](https://rasa.com/) project
-    - `endpoints.yml` : Contains the endpoints for the     bot, such as the action server and the tracker store.
-    - `domain.yml` : Contains the domain of the bot, including intents, entities, actions, and responses.
-    - `config.yml` : NLP pipeline used by Rasa
-    - `data`
-      - `nlu.yml` : Contains the NLU training data.
-      - `stories.yml` : Contains the stories for the bot.
-      - `rules.yml` : Contains the rules for the bot.
-    - `models` : Contains the trained models for classifing intents and extracting slots.
-  - `datasets` : fictional datasets that are used for testing and providing the available e-commerce products
-  - `actions_server` : [`Rasa`](https://rasa.com/)'s custom actions server
-    - `src`
-      - `LLMChatbot`: implements the RAG-based subsystem
-        - `chatbot.py` : Contains the code for the LLM-based chatbot.
-        - `prompts.py` : Contains the prompts for the LLM-based chatbot.
-        - `services`
-            - `database.py` : Contains the code for the database service.
-            - `product_handler.py` : Contains the code for product-related features.
-            - `memory_handler.py` : Contains the code for memory-related features.
-            - `cart_handler.py` : Contains the code for cart-related features.
-            - `llm_handler.py` : Contains the code for LLM-related features
-            - `guardrails` : Contains guardrails implementation
+### **2. Instalación Manual**
+
+#### **Servidor de Acciones:**
+```bash
+cd retailGPT/actions_server
+poetry install
+cd ../..
+```
+
+#### **Chatbot Rasa:**
+```bash
+cd retailGPT/rasa_chatbot
+poetry install
+python -m spacy download es_core_news_lg
+rasa train
+cd ../..
+```
+
+#### **Interfaz de Usuario:**
+```bash
+cd chat_interface
+poetry install
+cd ..
+```
+
+#### **Base de Datos:**
+```bash
+docker-compose up -d database
+```
+
+### **3. Configuración de Variables de Entorno**
+
+Crear archivo `.env`:
+```env
+# OpenAI API (REQUERIDO)
+OPENAI_API_KEY=tu_clave_api_openai_aqui
+
+# MercadoPago (OPCIONAL)
+MERCADOPAGO_ACCESS_TOKEN=tu_clave_mercadopago_aqui
+
+# Configuración
+CHATBOT_NAME=Óptica Solar
+CHATBOT_LANGUAGE=es
+```
+
+### **4. Entrenamiento del Modelo**
+
+```bash
+cd retailGPT/rasa_chatbot
+rasa train
+cd ../..
+```
+
+## ⚙️ Configuración
+
+### **Credenciales Requeridas:**
+
+#### **OpenAI API Key (OBLIGATORIO)**
+1. Ve a [OpenAI Platform](https://platform.openai.com/api-keys)
+2. Crea una cuenta o inicia sesión
+3. Haz clic en "Create new secret key"
+4. Copia la clave y pégala en `.env`
+
+#### **MercadoPago Access Token (OPCIONAL)**
+1. Ve a [MercadoPago Developers](https://www.mercadopago.com.ar/developers)
+2. Crea una cuenta o inicia sesión
+3. Ve a "Credenciales"
+4. Copia el "Access Token" y pégala en `.env`
+
+### **Configuración Avanzada:**
+
+#### **Personalizar Catálogo:**
+```bash
+# Editar catálogo de productos
+nano retailGPT/datasets/sunglasses_products.json
+
+# Reentrenar modelo
+cd retailGPT/rasa_chatbot
+rasa train
+```
+
+#### **Modificar Prompts:**
+```bash
+# Editar prompts del chatbot
+nano retailGPT/actions_server/src/LLMChatbot/prompts.py
+```
+
+#### **Configurar Idiomas:**
+```bash
+# Cambiar idioma en config.yml
+nano retailGPT/rasa_chatbot/config.yml
+```
+
+## 🎯 Uso del Sistema
+
+### **Flujo de Usuario Típico:**
+
+1. **Saludo y Verificación:**
+   - El chatbot saluda al usuario
+   - Verifica edad legal
+   - Solicita código postal
+
+2. **Recomendaciones:**
+   - Usuario describe sus necesidades
+   - Sistema recomienda gafas de sol
+   - Muestra características y precios
+
+3. **Carrito de Compras:**
+   - Usuario agrega productos al carrito
+   - Sistema valida disponibilidad
+   - Muestra resumen del carrito
+
+4. **Procesamiento de Pago:**
+   - Usuario selecciona método de pago
+   - Sistema procesa con MercadoPago
+   - Confirma la compra
+
+### **Comandos Útiles:**
+
+```bash
+# Ver estado del sistema
+python test_simple.py
+
+# Ejecutar tests unitarios
+python tests/run_tests.py
+
+# Ver logs en tiempo real
+docker-compose logs -f
+
+# Reiniciar servicios
+docker-compose restart
+```
+
+## 🧪 Testing
+
+### **Tests Unitarios:**
+
+```bash
+# Ejecutar todos los tests
+python tests/run_tests.py
+
+# Ejecutar test específico
+python tests/run_tests.py test_schemas
+
+# Ejecutar con cobertura
+python -m pytest tests/ --cov=retailGPT
+```
+
+### **Tests Disponibles:**
+
+- **`test_schemas.py`** - Esquemas de datos
+- **`test_product_handler.py`** - Manejo de productos
+- **`test_cart_handler.py`** - Manejo de carrito
+- **`test_mercadopago_handler.py`** - Integración MercadoPago
+- **`test_catalog.py`** - Catálogo de productos
+- **`test_rasa_config.py`** - Configuración de Rasa
+
+### **Verificación del Sistema:**
+
+```bash
+# Verificar instalación
+python test_simple.py
+
+# Verificar configuración
+python -c "import os; print('OK' if os.getenv('OPENAI_API_KEY') else 'Falta OPENAI_API_KEY')"
+```
+
+## 🔌 API y Endpoints
+
+### **Endpoints Principales:**
+
+#### **Rasa API:**
+- `POST /webhooks/rest/webhook` - Enviar mensaje
+- `GET /conversations/{conversation_id}/tracker` - Estado de conversación
+- `POST /conversations/{conversation_id}/execute` - Ejecutar acción
+
+#### **Servidor de Acciones:**
+- `POST /webhook` - Webhook de Rasa
+- `GET /health` - Estado del servidor
+
+#### **Interfaz Streamlit:**
+- `GET /` - Interfaz principal
+- `GET /download_conversation` - Descargar conversación
+
+### **Ejemplo de Uso de API:**
+
+```python
+import requests
+
+# Enviar mensaje al chatbot
+response = requests.post(
+    "http://localhost:5005/webhooks/rest/webhook",
+    json={
+        "sender": "user123",
+        "message": "Quiero gafas aviador para la playa"
+    }
+)
+
+print(response.json())
+```
+
+## 🛠️ Desarrollo
+
+### **Estructura del Proyecto:**
+
+```
+├── chat_interface/          # Interfaz Streamlit
+│   ├── src/
+│   │   ├── app.py          # Aplicación principal
+│   │   ├── chatbot.py      # Cliente del chatbot
+│   │   └── utils/          # Utilidades
+│   └── pyproject.toml      # Dependencias
+├── retailGPT/
+│   ├── rasa_chatbot/       # Motor de conversación
+│   │   ├── config.yml      # Configuración Rasa
+│   │   ├── domain.yml      # Dominio del bot
+│   │   └── data/           # Datos de entrenamiento
+│   ├── actions_server/     # Lógica de negocio
+│   │   └── src/
+│   │       └── LLMChatbot/
+│   │           ├── schemas.py      # Esquemas de datos
+│   │           ├── prompts.py      # Prompts del LLM
+│   │           └── services/       # Servicios
+│   └── datasets/           # Catálogo de productos
+├── tests/                  # Tests unitarios
+├── docker-compose.yml      # Configuración Docker
+└── README.md              # Este archivo
+```
+
+### **Agregar Nuevas Funcionalidades:**
+
+#### **1. Nuevo Intent:**
+```yaml
+# En retailGPT/rasa_chatbot/data/nlu.yml
+- intent: ask_warranty_info
+  examples: |
+    - What is the warranty?
+    - How long is the warranty?
+    - What warranty do you offer?
+```
+
+#### **2. Nueva Acción:**
+```python
+# En retailGPT/actions_server/src/actions.py
+class ActionWarrantyInfo(Action):
+    def name(self) -> Text:
+        return "action_warranty_info"
+    
+    def run(self, dispatcher, tracker, domain):
+        # Lógica de la acción
+        pass
+```
+
+#### **3. Nuevo Producto:**
+```json
+// En retailGPT/datasets/sunglasses_products.json
+{
+  "row_id": 21,
+  "product_name": "Nuevo Modelo",
+  "brand": "Nueva Marca",
+  "model": "Nuevo Modelo",
+  "color": "Nuevo Color",
+  "frame_material": "Nuevo Material",
+  "lens_type": "Nuevo Tipo",
+  "uv_protection": "100% UV400",
+  "size": "M",
+  "style": "Nuevo Estilo",
+  "full_price": 199.99,
+  "image_url": "https://example.com/image.jpg",
+  "description": "Descripción del nuevo producto"
+}
+```
+
+### **Debugging:**
+
+```bash
+# Logs detallados de Rasa
+cd retailGPT/rasa_chatbot
+rasa run --debug
+
+# Logs del servidor de acciones
+cd retailGPT/actions_server
+poetry run python -m rasa_sdk --actions actions --debug
+
+# Logs de Docker
+docker-compose logs -f
+```
+
+## 🚀 Despliegue
+
+### **Despliegue Local:**
+
+```bash
+# Usar Docker Compose
+docker-compose up -d
+
+# Verificar servicios
+docker-compose ps
+```
+
+### **Despliegue en Producción:**
+
+#### **1. Configurar Variables de Entorno:**
+```bash
+export OPENAI_API_KEY="tu_clave_produccion"
+export MERCADOPAGO_ACCESS_TOKEN="tu_clave_produccion"
+export ENVIRONMENT="production"
+```
+
+#### **2. Usar Docker Compose:**
+```yaml
+# docker-compose.prod.yml
+version: '3.8'
+services:
+  rasa:
+    build: .
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    ports:
+      - "5005:5005"
+  
+  actions:
+    build: .
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - MERCADOPAGO_ACCESS_TOKEN=${MERCADOPAGO_ACCESS_TOKEN}
+    ports:
+      - "5055:5055"
+  
+  demo:
+    build: .
+    ports:
+      - "8501:8501"
+  
+  database:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+```
+
+#### **3. Desplegar:**
+```bash
+docker-compose -f docker-compose.prod.yml up -d
+```
+
+### **Monitoreo:**
+
+```bash
+# Ver logs en tiempo real
+docker-compose logs -f
+
+# Verificar estado de servicios
+curl http://localhost:5005/health
+curl http://localhost:5055/health
+
+# Métricas de uso
+docker stats
+```
+
+## 🔧 Troubleshooting
+
+### **Problemas Comunes:**
+
+#### **Error: "No module named 'pydantic'"**
+```bash
+cd retailGPT/actions_server
+poetry install
+```
+
+#### **Error: "Model 'es_core_news_lg' not found"**
+```bash
+cd retailGPT/rasa_chatbot
+python -m spacy download es_core_news_lg
+```
+
+#### **Error: "Rasa model not trained"**
+```bash
+cd retailGPT/rasa_chatbot
+rasa train
+```
+
+#### **Error: "Docker not running"**
+```bash
+# Iniciar Docker Desktop
+# Verificar que esté ejecutándose
+docker --version
+```
+
+#### **Error: "Poetry not found"**
+```bash
+# Instalar Poetry
+curl -sSL https://install.python-poetry.org | python3 -
+# Reiniciar terminal
+```
+
+#### **Error: "OpenAI API key not configured"**
+```bash
+# Verificar archivo .env
+cat .env
+# Configurar clave
+export OPENAI_API_KEY="tu_clave_aqui"
+```
+
+### **Logs Útiles:**
+
+```bash
+# Logs de Rasa
+tail -f retailGPT/rasa_chatbot/rasa.log
+
+# Logs del servidor de acciones
+tail -f retailGPT/actions_server/actions.log
+
+# Logs de Docker
+docker-compose logs -f
+```
+
+### **Verificación del Sistema:**
+
+```bash
+# Test completo
+python test_simple.py
+
+# Test específico
+python tests/run_tests.py test_catalog
+
+# Verificar servicios
+curl http://localhost:5005/health
+curl http://localhost:5055/health
+curl http://localhost:8501
+```
+
+## 🤝 Contribuciones
+
+### **Cómo Contribuir:**
+
+1. **Fork del repositorio**
+2. **Crear rama de feature:**
+   ```bash
+   git checkout -b feature/nueva-funcionalidad
+   ```
+3. **Hacer cambios y tests:**
+   ```bash
+   python tests/run_tests.py
+   ```
+4. **Commit de cambios:**
+   ```bash
+   git commit -am 'Agregar nueva funcionalidad'
+   ```
+5. **Push a la rama:**
+   ```bash
+   git push origin feature/nueva-funcionalidad
+   ```
+6. **Crear Pull Request**
+
+### **Estándares de Código:**
+
+- **Python:** PEP 8
+- **Tests:** Cobertura mínima 80%
+- **Documentación:** Docstrings en español
+- **Commits:** Mensajes descriptivos
+
+### **Áreas de Contribución:**
+
+- 🐛 **Bug fixes**
+- ✨ **Nuevas funcionalidades**
+- 📚 **Documentación**
+- 🧪 **Tests**
+- 🎨 **Mejoras de UI/UX**
+- 🔧 **Optimizaciones**
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT. Ver [LICENSE](LICENSE) para más detalles.
+
+## 📞 Soporte
+
+### **Recursos de Ayuda:**
+
+- 📖 **Documentación:** [README_OPTICA_SOLAR.md](README_OPTICA_SOLAR.md)
+- 🔧 **Instalación:** [INSTRUCCIONES_INSTALACION.md](INSTRUCCIONES_INSTALACION.md)
+- 🔐 **Credenciales:** [CREDENCIALES_REQUERIDAS.md](CREDENCIALES_REQUERIDAS.md)
+
+### **Contacto:**
+
+- 🐛 **Issues:** [GitHub Issues](https://github.com/tu-usuario/ChatBot-Ventas/issues)
+- 💬 **Discusiones:** [GitHub Discussions](https://github.com/tu-usuario/ChatBot-Ventas/discussions)
+- 📧 **Email:** soporte@opticasolar.com
+
+### **Comunidad:**
+
+- 👥 **Discord:** [Servidor de Discord](https://discord.gg/opticasolar)
+- 📺 **YouTube:** [Canal de Tutoriales](https://youtube.com/opticasolar)
+- 🐦 **Twitter:** [@OpticaSolar](https://twitter.com/opticasolar)
+
+---
+
+**¡Gracias por usar Óptica Solar! 🕶️✨**
+
+*Desarrollado con ❤️ para la comunidad de desarrolladores de chatbots.*
+

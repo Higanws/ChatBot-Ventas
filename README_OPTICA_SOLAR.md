@@ -50,43 +50,44 @@ El proyecto está compuesto por 4 aplicaciones principales:
 
 ## Instalación y Uso
 
-### Prerrequisitos
+### 🚀 Instalación Rápida
+
+```bash
+# 1. Instalar automáticamente
+python setup_optica_solar.py
+
+# 2. Configurar credenciales
+cp env_example.txt .env
+# Edita .env con tus credenciales
+
+# 3. Ejecutar sistema
+start_all.bat  # Windows
+./start_all.sh # Linux/Mac
+```
+
+### 📋 Prerrequisitos
 - Python 3.8+
 - Poetry para gestión de dependencias
 - Docker para Redis
 - Clave API de OpenAI
 - Clave API de MercadoPago (opcional)
 
-### 1. Interfaz de Chat
-```bash
-cd chat_interface
-poetry install
-cd src
-streamlit run app.py
-```
+### 🔐 Credenciales Requeridas
 
-### 2. Chatbot Rasa
-```bash
-cd retailGPT/rasa_chatbot
-poetry install
-python -m spacy download es_core_news_lg
-rasa train
-rasa run
-```
+#### OpenAI API Key (REQUERIDO)
+1. Ve a [OpenAI Platform](https://platform.openai.com/api-keys)
+2. Crea una cuenta o inicia sesión
+3. Haz clic en "Create new secret key"
+4. Copia la clave y pégala en el archivo .env
 
-### 3. Servidor de Acciones
-```bash
-cd retailGPT/actions_server
-poetry install
-export OPENAI_API_KEY="tu_clave_api"
-export MERCADOPAGO_ACCESS_TOKEN="tu_clave_mercadopago"  # opcional
-python -m rasa_sdk --actions actions
-```
+#### MercadoPago Access Token (OPCIONAL)
+1. Ve a [MercadoPago Developers](https://www.mercadopago.com.ar/developers)
+2. Crea una cuenta o inicia sesión
+3. Ve a "Credenciales"
+4. Copia el "Access Token" y pégala en el archivo .env
 
-### 4. Base de Datos
-```bash
-docker-compose up database
-```
+### 📖 Instalación Detallada
+Para instrucciones detalladas, consulta [INSTRUCCIONES_INSTALACION.md](INSTRUCCIONES_INSTALACION.md)
 
 ## Configuración de Variables de Entorno
 

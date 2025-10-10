@@ -1,0 +1,25 @@
+# Configuración de Óptica Solar
+# Copia este archivo como .env y configura tus credenciales
+
+# OpenAI API (REQUERIDO)
+OPENAI_API_KEY=tu_clave_api_openai_aqui
+
+# MercadoPago (OPCIONAL - para pagos reales)
+MERCADOPAGO_ACCESS_TOKEN=tu_clave_mercadopago_aqui
+
+# Azure OpenAI (OPCIONAL - alternativa a OpenAI)
+AZURE_OPENAI_API_KEY=tu_clave_azure_openai_aqui
+AZURE_RESOURCE=tu_recurso_azure_aqui
+AZURE_API_VERSION=2023-12-01-preview
+
+# Base de datos Redis (para Docker)
+REDIS_URL=redis://localhost:6379
+
+# Configuración del chatbot
+CHATBOT_NAME=Óptica Solar
+CHATBOT_LANGUAGE=es
+
+# URLs de la aplicación
+RASA_URL=http://localhost:5005
+ACTIONS_URL=http://localhost:5055
+CHAT_INTERFACE_URL=http://localhost:8501

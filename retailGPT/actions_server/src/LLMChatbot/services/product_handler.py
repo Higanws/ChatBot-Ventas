@@ -280,6 +280,7 @@ class ProductHandler:
     @staticmethod
     def get_product_unit_volume(user_id: str, product_name: str) -> float | None:
         """Gets the unit volume of a product in liters using the recommendations in the user conversation.
+        For sunglasses, we'll use a fixed volume since they don't have volume like beverages.
 
         Args:
 
@@ -294,10 +295,8 @@ class ProductHandler:
         product_data = ProductHandler._get_product_data(user_id, product_name)
 
         if product_data is not None:
-            product_volume = round(
-                100 * product_data["product_volume_in_hectoliters"], 3
-            )
-            return product_volume
+            # For sunglasses, use a fixed volume (0.001L per pair)
+            return 0.001
 
         return None
 
